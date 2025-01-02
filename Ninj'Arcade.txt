@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninj'Arcade - Boutique en ligne</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Ninj'Arcade</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#catalogue">Catalogue</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#panier">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="hero-image">
+            <img src="/mnt/data/Ninj'Arcade.png" alt="Ninj'Arcade Hero" style="width: 100%; height: auto;">
+        </div>
+    </section>
+
+    <section id="catalogue">
+        <h2>Catalogue</h2>
+        <div class="categories">
+            <div class="category">
+                <img src="images/pokemon.jpg" alt="Pokémon">
+                <h3>Pokémon</h3>
+                <p>Cartes, figurines et plus !</p>
+                <a href="#" class="cta">Voir plus</a>
+            </div>
+            <div class="category">
+                <img src="images/yu-gi-oh.jpg" alt="Yu-Gi-Oh">
+                <h3>Yu-Gi-Oh</h3>
+                <p>Decks, boosters et accessoires.</p>
+                <a href="#" class="cta">Voir plus</a>
+            </div>
+            <div class="category">
+                <img src="images/setup-gaming.jpg" alt="Setup Gaming">
+                <h3>Setup Gaming</h3>
+                <p>Claviers, souris, chaises gaming.</p>
+                <a href="#" class="cta">Voir plus</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>À propos de Ninj'Arcade</h2>
+        <p>Ninj'Arcade est la boutique en ligne dédiée aux passionnés de culture Geek. Que vous soyez fan de jeux vidéo, de mangas, ou de cartes à collectionner, vous trouverez votre bonheur ici !</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contactez-nous</h2>
+        <form action="submit">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <section id="panier">
+        <h2>Votre Panier</h2>
+        <div id="cart-items">
+            <p>Votre panier est vide.</p>
+        </div>
+        <button id="checkout">Passer à la caisse</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Ninj'Arcade. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // JavaScript pour gérer le panier
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Bienvenue sur Ninj\'Arcade!');
+
+            const panier = [];
+            const cartItems = document.getElementById('cart-items');
+            const checkoutButton = document.getElementById('checkout');
+
+            document.querySelectorAll('.cta').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const category = e.target.closest('.category').querySelector('h3').textContent;
+                    panier.push(category);
+                    updateCart();
+                });
+            });
+
+            function updateCart() {
+                cartItems.innerHTML = '';
+                if (panier.length === 0) {
+                    cartItems.innerHTML = '<p>Votre panier est vide.</p>';
+                } else {
+                    panier.forEach(item => {
+                        const listItem = document.createElement('p');
+                        listItem.textContent = item;
+                        cartItems.appendChild(listItem);
+                    });
+                }
+            }
+
+            checkoutButton.addEventListener('click', () => {
+                if (panier.length > 0) {
+                    alert('Merci pour votre achat ! Vos articles seront livrés sous peu.');
+                    panier.length = 0;
+                    updateCart();
+                } else {
+                    alert('Votre panier est vide. Ajoutez des articles avant de passer à la caisse.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
